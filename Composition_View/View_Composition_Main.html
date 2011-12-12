@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Source Code Views</title>
+  <link rel="stylesheet" href="../css/View_Composition_style.css" type="text/css" />
+  
+  <script type="text/javascript" src="../js/libs/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/libs/jquery.color.js"></script>
+  <script type="text/javascript" src="../js/libs/raphael.js"></script>
+  <script type="text/javascript" src="../js/znode/nodegraph.js"></script>
+  <script type="text/javascript" src="../js/znode/ui.js"></script> 
+  <script type="text/javascript" src="../js/libs/jquery_sc.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$(".links h1").addClass("active");
+		$(".links p").hide();
+		$(".links h1").click(function(){
+			$(this).next("p").slideToggle("slow")
+				.siblings("p:visible").slideUp("slow");
+			$(this).toggleClass("active");
+			$(this).siblings("h3").removeClass("active");
+		});
+	});
+
+</script>
+
+</head>
+
+<body>
+
+  <header>
+    <hgroup>
+      <h1><a href="../index.html">Znode</a></h1>
+      <nav id="global">
+        <div id="overlay"></div>
+        <div id="controls">
+          <ul>
+          <li><a href="../View_Node.html">Node</a></li> 
+          <li><a href="../View_SourceCode.html">Source Code</a></li> 
+          <li><a href="../View_Inheritance.html">Inheritance</a></li> 
+          <li><a href="../View_Composition.html">Composition</a></li> 
+          <li><a href="../View_GlobalVar.html">Variables</a></li>
+          <li><a href="../View_Function.html">Function</a></li>		  
+          <li><a href="../View_Resources.html">Resources</a></li>
+          </ul>
+        </div>
+      </nav>
+    </hgroup>
+  </header>
+  
+  <div class="clearfix">
+  
+    <div id="content">
+      <article>
+        <nav id="leftBar">
+          <ul><a><EM>CHOOSE CLASS</EM></a><br>
+           <li><a href="View_Composition_Main.html">Main</a></li><br>
+           <li><a href="View_Composition_GameObjectManager.html">GameObjectManager</a></li><br>
+		   <li><a href="View_Composition_ApplicationManager.html">ApplicationManager</a></li><br>
+           <li><a href="View_Composition_Level.html">Level</a></li><br>
+           <li><a href="View_Composition_Player.html">Player</a></li><br>
+           <li><a href="View_Composition_AnimatedGameObject.html">AnimatedGameObject</a></li><br>
+          </ul>
+        </nav>
+      </article>
+    </div>
+    
+    <aside>
+    	<h1>Composition View : Main</h1>
+    	<div id="openWin">
+        <div id="fileTitle">Files:</div>
+        <div id="files"></div>
+      </div>
+      <div class="simple_scroll">
+        <div class="scroll-pane">
+		      <div class="scroll-content">
+			      <div class="scroll-content-item">
+			        <div class="links">
+					<ul>
+					<h1><a>Main.js</a></h1>
+				  			<p style="width: 512px">
+							/** target frames per second  
+<br>    @type Number
+<br>*/
+<br><a style="color: red ">var FPS = 30;</a>
+<br>/** time between frames 
+<br>    @type Number
+<br>*/
+<br><a style="color: red ">var SECONDS_BETWEEN_FRAMES = 1 / FPS;</a>
+<br>/** A global reference to the GameObjectManager instance  
+<br>    @type GameObjectManager
+<br>*/
+<br><a style="color: red ">var g_GameObjectManager = null;</a>
+<br>/** A global reference to the ApplicationManager instance  
+<br>    @type ApplicationManager
+<br>*/
+<br><a style="color: red ">var g_ApplicationManager = null;</a>
+<br>/** A global reference to the ResourceManager instance
+<br>    @type ResourceManager
+<br>*/
+<br><a style="color: red ">var g_ResourceManager = null;</a>
+<br>/** The players score
+<br>    @type Number
+<br> */
+<br><a style="color: red ">var g_score = 0;</a>
+<br>/** A reference to the player
+<br>    @type Player    
+<br> */
+<br><a style="color: red ">var g_player = null;</a>
+<br>/** An image to be used by the application
+<br>    @type Image
+<br>*/
+<br>
+<br>// The entry point of the application is set to the init function
+<br><a style="color: red ">window.onload = init;</a>
+<br>
+<br>/**
+<br>    Application entry point
+<br>*/
+<br>function <a style="color: red ">init</a>()
+<br>{
+<br>    new GameObjectManager().startupGameObjectManager();
+<br>}
+							</p>
+							<h1><a>GameObjectManager.js</a></h1>
+				  			<p style="width: 512px">
+							/**
+<br>    A manager for all the objects in the game
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function GameObjectManager()
+<br>{
+<br>    /** An array of game objects 
+<br>        @type Arary
+<br>    */
+<br>    <a style="color: red ">this.gameObjects = new Array();</a>
+<br>    /** The time that the last frame was rendered  
+<br>        @type Date
+<br>    */
+<br>    <a style="color: red ">this.lastFrame = new Date().getTime();</a>
+<br>    /** The global scrolling value of the x axis  
+<br>        @type Number
+<br>    */
+<br>    <a style="color: red ">this.xScroll = 0;</a>
+<br>    /** The global scrolling value of the y axis  
+<br>        @type Number
+<br>    */
+<br>    <a style="color: red ">this.yScroll = 0;</a>
+<br>    /** A reference to the canvas element  
+<br>        @type HTMLCanvasElement
+<br>    */
+<br>    <a style="color: red ">this.canvas = null;</a>
+<br>    /** A reference to the 2D context of the canvas element
+<br>        @type CanvasRenderingContext2D
+<br>    */
+<br>    <a style="color: red ">this.context2D = null;</a>
+<br>    /** A reference to the in-memory canvas used as a back buffer 
+<br>        @type HTMLCanvasElement
+<br>    */
+<br>    <a style="color: red ">this.backBuffer = null;</a>
+<br>    /** A reference to the backbuffer 2D context 
+<br>        @type CanvasRenderingContext2D
+<br>    */
+<br>    <a style="color: red ">this.backBufferContext2D = null;</a>
+<br>    /** True if the canvas element is supported, false otherwise
+<br>        @type Boolean
+<br>    */
+<br>    <a style="color: red ">this.canvasSupported = false;</a>
+<br>	/** True if the resources supplied to the ResourceManager are all loaded, false otherwise
+<br>        @type Boolean
+<br>    */
+<br>    <a style="color: red ">this.resourcesLoaded = false;</a>
+<br>	/** The current colour of the loading screen
+<br>        @type Number
+<br>    */
+<br>	<a style="color: red ">this.loadingScreenCol = 0;</a>
+<br>	/** The direction of the changes to the loading screen colour.
+<br>		1 = colour moving towards white
+<br>		-1 = colour moving topwards balck
+<br>        @type Number
+<br>    */	
+<br>	<a style="color: red ">this.loadingScreenColDirection = 1;</a>
+<br>	/** How quickly to change the loading screen colour per second
+<br>        @type Number
+<br>    */
+<br>	<a style="color: red ">this.loadingScreenColSpeed = 255;</a>
+<br>
+<br>    /**
+<br>        Initialises this object
+<br>        @return A reference to the initialised object
+<br>    */
+<br>    this.<a style="color: red ">startupGameObjectManager</a> = function()
+<br>    {
+<br>        // set the global pointer to reference this object
+<br>        g_GameObjectManager = this;
+<br>
+<br>        // watch for keyboard events
+<br>        document.onkeydown = function(event){g_GameObjectManager.keyDown(event);}
+<br>        document.onkeyup = function(event){g_GameObjectManager.keyUp(event);}
+<br>
+<br>        // get references to the canvas elements and their 2D contexts
+<br>        this.canvas = document.getElementById('canvas');
+<br>
+<br>        // if the this.canvas.getContext function does not exist it is a safe bet that
+<br>        // the current browser does not support the canvas element.
+<br>        // in this case we don't go any further, which will save some debuggers (like
+<br>        // the IE8 debugger) from throwing up a lot of errors.
+<br>        if (this.canvas.getContext)
+<br>        {
+<br>            this.canvasSupported = true;
+<br>            this.context2D = this.canvas.getContext('2d');
+<br>            this.backBuffer = document.createElement('canvas');
+<br>            this.backBuffer.width = this.canvas.width;
+<br>            this.backBuffer.height = this.canvas.height;
+<br>            this.backBufferContext2D = this.backBuffer.getContext('2d');
+<br>        }
+<br>
+<br>        // create a new ResourceManager
+<br>        new ResourceManager().startupResourceManager(
+<br>            [{name: 'runLeft', src: 'run_left.png'},
+<br>            {name: 'runRight', src: 'run_right.png'},
+<br>            {name: 'idleLeft', src: 'idle_left.png'},
+<br>            {name: 'idleRight', src: 'idle_right.png'},
+<br>            {name: 'background0', src: 'jsplatformer4_b0.png'},
+<br>            {name: 'background1', src: 'jsplatformer4_b1.png'},
+<br>            {name: 'background2', src: 'jsplatformer4_b2.png'},
+<br>            {name: 'block', src: 'BlockA0.png'},
+<br>            {name: 'gem', src: 'Gem.png'},
+<br>			{name: '1', src: '1.png'},
+<br>			{name: '2', src: '2.png'},
+<br>			{name: '3', src: '3.png'},
+<br>			{name: '4', src: '4.png'},
+<br>			{name: '5', src: '5.png'}, 
+<br>			{name: '6', src: '6.png'},
+<br>			{name: '7', src: '7.png'},
+<br>			{name: '8', src: '8.png'},
+<br>			{name: '9', src: '9.png'}, 
+<br>			{name: '10', src: '10.png'}]);
+<br>
+<br>        // use setInterval to call the draw function
+<br>        setInterval(function(){g_GameObjectManager.draw();}, SECONDS_BETWEEN_FRAMES);
+<br>        
+<br>        return this;        
+<br>    }
+<br>    
+<br>    /**
+<br>        The render loop
+<br>    */
+<br>    this.<a style="color: red ">draw</a> = function ()
+<br>    {
+<br>        // calculate the time since the last frame
+<br>        var thisFrame = new Date().getTime();
+<br>        var dt = (thisFrame - this.lastFrame)/1000;
+<br>        this.lastFrame = thisFrame;
+<br>
+<br>        if (!this.resourcesLoaded)
+<br>        {
+<br>            var numLoaded = 0;
+<br>            for (i = 0; i < g_ResourceManager.imageProperties.length; ++i)
+<br>            {
+<br>                if (g_ResourceManager[g_ResourceManager.imageProperties[i]].complete)
+<br>                    ++numLoaded;
+<br>            }
+<br>
+<br>            if ( numLoaded == g_ResourceManager.imageProperties.length )
+<br>            {
+<br>                // create a new ApplicationManager
+<br>                new ApplicationManager().startupApplicationManager(this.canvas.width, this.canvas.height);
+<br>                this.resourcesLoaded = true;
+<br>				alert("Images are Loaded - Press a key to Quit");
+<br>            }
+<br>			else
+<br>			{
+<br>				this.loadingScreenCol += this.loadingScreenColDirection * this.loadingScreenColSpeed * dt;
+<br>				if (this.loadingScreenCol > 255)
+<br>				{
+<br>					this.loadingScreenCol = 255;
+<br>					this.loadingScreenColDirection = -1;
+<br>				}
+<br>				else if (this.loadingScreenCol < 0)
+<br>				{
+<br>					this.loadingScreenCol = 0;
+<br>					this.loadingScreenColDirection = 1;	
+<br>				}
+<br>				this.context2D.fillStyle = "rgb(" + parseInt(this.loadingScreenCol) + "," + parseInt(this.loadingScreenCol) + "," + parseInt(this.loadingScreenCol) + ")";
+<br>				this.context2D.fillRect (0, 0, this.canvas.width, this.canvas.height);
+<br>			}
+   <br>     }
+<br>        
+<br>        // clear the drawing contexts
+<br>        if (this.canvasSupported && this.resourcesLoaded)
+<br>        {
+<br>            this.backBufferContext2D.clearRect(0, 0, this.backBuffer.width, this.backBuffer.height);
+<br>            this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height);
+<br>        
+<br>            // first update all the game objects
+<br>            for (x in this.gameObjects)
+<br>            {
+<br>                if (this.gameObjects[x].update)
+<br>                {
+<br>                    this.gameObjects[x].update(dt, this.backBufferContext2D, this.xScroll, this.yScroll);
+<br>                }
+<br>            }
+<br>
+<br>            // then draw the game objects
+<br>            for (x in this.gameObjects)
+<br>            {
+<br>                if (this.gameObjects[x].draw)
+<br>                {
+<br>                    this.gameObjects[x].draw(dt, this.backBufferContext2D, this.xScroll, this.yScroll);
+<br>                }
+<br>            }
+<br>
+<br>            // copy the back buffer to the displayed canvas
+<br>            this.context2D.drawImage(this.backBuffer, 0, 0);
+<br>        }        
+<br>    };
+<br>    
+<br>    /**
+<br>        Adds a new GameObject to the gameObjects collection
+<br>        @param gameObject The object to add
+<br>    */
+<br>    this.<a style="color: red ">addGameObject</a> = function(gameObject)
+<br>    {
+<br>        this.gameObjects.push(gameObject);
+<br>        this.gameObjects.sort(function(a,b){return a.zOrder - b.zOrder;})
+<br>    };
+<br>    
+<br>    /**
+<br>        Removes a GameObject from the gameObjects collection
+<br>        @param gameObject The object to remove
+<br>    */
+<br>    this.<a style="color: red ">removeGameObject</a> = function(gameObject)
+<br>    {
+<br>        this.gameObjects.removeObject(gameObject);
+<br>    }
+<br>
+<br>    this.keyDown = function(event)
+<br>    {
+<br>        for (x in this.gameObjects)
+<br>        {
+<br>            if (this.gameObjects[x].keyDown)
+<br>            {
+<br>                this.gameObjects[x].keyDown(event);
+<br>            }
+<br>        }
+<br>    }
+<br>
+<br>    this.<a style="color: red ">keyUp</a> = function(event)
+<br>    {
+<br>        for (x in this.gameObjects)
+<br>        {
+<br>            if (this.gameObjects[x].keyUp)
+<br>            {
+<br>                this.gameObjects[x].keyUp(event);
+<br>            }
+<br>        }
+<br>    }
+<br>}
+							</p>
+				</ul>
+				
+			</li>
+				  		</div>
+				  		</div>
+						<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+							<div class="scroll-bar"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </aside>
+    
+  </div>
+  
+  <footer class="clearfix">
+    <section>
+      <nav id="footerBar">
+        <ul>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Documentations</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Demos</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">FAQ</a><li>
+          <li><a HREF="mailto:iamjerry719@gmail.com">Contact Us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <p class="copyright">Copyright &copy; 2011 <strong>Mingpu Yu</strong>. All Rights Reserved.</p>
+  </footer>
+      
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

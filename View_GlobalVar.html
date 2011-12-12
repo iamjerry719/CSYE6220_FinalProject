@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Variables Views</title>
+  <link href="css/View_GlobalVar_style.css" rel="stylesheet" type="text/css"/>
+  <link href="css/overcast/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="js/libs/jquery-1.6.2.min.js"></script>
+  <script type="text/javascript" src="js/libs/jqueryui-1.8.16.min.js"></script>
+  <script type="text/javascript" src="js/view/jquery.tablesorter.min.js"></script>
+  <script type="text/javascript" src="js/view/view_globalVar.js"></script>
+  <script type="text/javascript" src="js/libs/jquery.tooltip.js"></script>
+  
+  
+</head>
+
+<body>
+
+  <header>
+    <hgroup>
+      <h1><a href="index.html">Znode</a></h1>
+      <nav id="global">
+        <ul>
+          <li><a href="View_Node.html">Node</a></li>
+          <li><a href="View_SourceCode.html">Source Code</a></li>
+          <li><a href="View_Inheritance.html">Inheritance</a></li>
+          <li><a href="View_Composition.html">Composition</a></li>
+          <li><a href="View_GlobalVar.html">Variables</a></li>
+          <li><a href="View_Function.html">Function</a></li>
+          <li><a href="View_Resources.html">Resources</a></li>
+        </ul>
+      </nav>
+    </hgroup>
+  </header>
+  
+  <div class="clearfix">
+  
+    <div id="content">
+      <article>
+        <nav id="leftBar">
+          <ul><a style="color: #000000">Choose Variables:</a><br>
+            <li><a id="FPS">FPS</a></li><br>
+            <li><a id="SECONDS_BETWEEN_FRAMES">SECONDS_BETWEEN_FRAMES</a></li><br>
+            <li><a id="g_GameObjectManager">g_GameObjectManager</a></li><br>
+            <li><a id="g_ApplicationManager">g_ApplicationManager</a></li><br>
+            <li><a id="g_ResourceManager">g_ResourceManager</a></li><br>
+            <li><a id="g_score">g_score</a></li><br>
+            <li><a id="g_player">g_player</a></li><br>
+          </ul>
+        </nav>
+      </article>
+    </div>
+    
+    <aside>
+      <h1>Global Variables View</h1>
+      <table id="varTable" class="tablesorter">
+      	<thead>
+      		<tr>
+      			<th>Variable Name</th>
+      			<th>Declared</th>
+      			<th>Initialed</th>
+      			<th>Change Value</th>
+      			<th>Used</th>
+      		</tr>
+      	</thead>
+      	<tbody>
+      		<tr class="FPS_tr">
+      			<td>FPS</td>
+      			<td><div class="popout" id="FPS_dec" title="var FPS = 30;">Main.js</div></td>
+      			<td><div class="popout" id="FPS_ini" title="var FPS = 30;">Main.js</div></td>
+      			<td>Static Variable</td>
+      			<td>
+      				<div class="popout" id="FPS_used1" title="this.startupAnimatedGameObject = function( image, x, y, z, frameCount, fps)">AnimatedGameObject.js</div>
+      				<div class="popout" id="FPS_used2" title="this.startupAnimatedGameObject (image, x, y, y-this.bounceHeight, z, frameCount, fps)">Powerup.js</div>
+      			</td>
+      		</tr>
+      		<tr class="SBF_tr">
+      			<td>SECONDS_BETWEEN_FRAMES</td>
+      			<td><div class="popout" id="SBF_dec" title="var SECONDS_BETWEEN_FRAMES = 1 / FPS">Main.js</div></td>
+      			<td><div class="popout" id="SBF_ini" title="var SECONDS_BETWEEN_FRAMES = 1 / FPS">Main.js</div></td>
+      			<td>Static Variable</td>
+      			<td><div class="popout" id="SBF_used" title="setInterval(function() {g_GameObjectManager.draw(); }, SECONDS_BETWEEN_FRAMES);">GameObjectManager.js</div></td>
+      		</tr>
+      		<tr class="g_GOM_tr">
+      			<td>g_GameObjectManager</td>
+      			<td><div class="popout" id="g_GOM_dec" title="var g_GameObjectManager = null;">Main.js</div></td>
+      			<td><div class="popout" id="g_GOM_ini" title="g_GameObjectManager = this;">GameObjectManager.js</div></td>
+      			<td></td>
+      			<td>
+      				<div class="popout" id="g_GOM_used1" title="g_GameObjectManager .shutdownAll();<br>.xScroll<br>.yScroll">ApplicationManager.js</div>
+      				<div class="popout" id="g_GOM_used2" title="g_GameObjectManager .addGameObject(this);">GameObject.js</div>
+      				<div class="popout" id="g_GOM_used3" title="g_GameObjectManager .keyDown(event);<br>g_GameObjectManager .keyUp(event);">GameObjectManager.js</div>
+      				<div class="popout" id="g_GOM_used4" title="g_GameObjectManager.xScroll">Player.js</div>
+      			</td>
+      		</tr>
+      		<tr class="g_AM_tr">
+      			<td>g_ApplicationManager</td>
+      			<td><div class="popout" id="g_AM_dec" title="g_ApplicationManager = null;">Main.js</div></td>
+      			<td><div class="popout" id="g_AM_ini" title="g_ApplicationManager = this;">ApplicationManager.js</div></td>
+      			<td></td>
+      			<td>
+      				<div class="popout" id="g_AM_used1" title="g_ApplicationManager .openMainMenu();">LevelEndPost.js</div>
+      				<div class="popout" id="g_AM_used2" title="g_ApplicationManager .startLevel();">MainMenu.js</div>
+      				<div class="popout" id="g_AM_used3" title="g_ApplicationManager .updateScore();">Powerup.js</div>
+      			</td>
+      		</tr>
+      		<tr class="g_RM_tr">
+      			<td>g_ResourceManager</td>
+      			<td><div class="popout" id="g_RM_dec" title="var g_ResourceManager = null;">Main.js</div></td>
+      			<td><div class="popout" id="g_RM_ini" title="g_ResourceManager = this;">ResourceManager.js</div></td>
+      			<td></td>
+      			<td>
+      				<div class="popout" id="g_RM_used1" title="RepeatingGameObject() .startupRepeatingGameObject();">ApplicationManager.js</div>
+      				<div class="popout" id="g_RM_used2" title="g_ResourceManager .imageProperties .length<br>g_ResourceManager .imageProperties[i]">GameObjectManager.js</div>
+      				<div class="popout" id="g_RM_used3" title="g_ResourceManager.block<br>g_ResourceManager.gem<br>g_ResourceManager.portal">Level.js</div>
+      				<div class="popout" id="g_RM_used4" title="g_ResourceManager.mainmenu">MainMenu.js</div>
+      				<div class="popout" id="g_RM_used5" title="g_ResourceManager .idleLeft<br>g_ResourceManager .runRight<br>g_ResourceManager .runLeft">Player.js</div>
+      			</td>
+      		</tr>
+      		<tr class="g_score_tr">
+      			<td>g_score</td>
+      			<td><div class="popout" id="g_score_dec" title="var g_score = 0;">Main.js</div></td>
+      			<td><div class="popout" id="g_score_ini" title="g_score = 0;">ApplicationManger.js</div></td>
+      			<td><div class="popout" id="g_score_change" title="g_score += this.value;">Powerup.js</div></td>
+      			<td>
+      				<div class="popout" id="g_score_used1" title="score.innerHTML = String(g_score);">ApplicationManager.js</div>
+      				<div class="popout" id="g_score_used2" title="g_score += this.value;">Powerup.js</div>
+      			</td>
+      		</tr>
+      		<tr class="g_player_tr">
+      			<td>g_player</td>
+      			<td><div class="popout" id="g_player_dec" title="var g_player = null;">Main.js</div></td>
+      			<td><div class="popout" id="g_player_ini" title="g_player = new Player() .startupPlayer(this.level);">ApplicationManager.js</div></td>
+      			<td></td>
+      			<td>
+      				<div class="popout" id="g_player_used1" title="g_player = new Player() .startupPlayer(this.level);">ApplicationManager.js</div>
+      				<div class="popout" id="g_player_used2" title="g_player.collisionArea()">LevelEndPost.js</div>
+      				<div class="popout" id="g_player_used3" title="g_player.collisionArea()">Powerup.js</div>
+      			</td>
+      		</tr>
+      	</tbody>
+      </table>
+    </aside>
+    
+  </div>
+  
+  <footer class="clearfix">
+    <section>
+      <nav id="footerBar">
+        <ul>
+          <li><a href="http://jquery.com">jQuery</a></li>
+          <li><a href="http://www.w3schools.com/">HTML5</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">About me</a><li>
+          <li><a HREF="mailto:iamjerry719@gmail.com">Contact Us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <p class="copyright">Copyright &copy; 2011 <strong>Yu-Teh Lu</strong>. All Rights Reserved.</p>
+  </footer>
+      
+
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Source Code Views</title>
+  <link rel="stylesheet" href="../css/View_Composition_style.css" type="text/css" />
+  
+  <script type="text/javascript" src="../js/libs/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/libs/jquery.color.js"></script>
+  <script type="text/javascript" src="../js/libs/raphael.js"></script>
+  <script type="text/javascript" src="../js/znode/nodegraph.js"></script>
+  <script type="text/javascript" src="../js/znode/ui.js"></script> 
+  <script type="text/javascript" src="../js/libs/jquery_sc.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$(".links h1").addClass("active");
+		$(".links p").hide();
+		$(".links h1").click(function(){
+			$(this).next("p").slideToggle("slow")
+				.siblings("p:visible").slideUp("slow");
+			$(this).toggleClass("active");
+			$(this).siblings("h3").removeClass("active");
+		});
+	});
+
+</script>
+
+</head>
+
+<body>
+
+  <header>
+    <hgroup>
+      <h1><a href="../index.html">Znode</a></h1>
+      <nav id="global">
+        <div id="overlay"></div>
+        <div id="controls">
+          <ul>
+          <li><a href="../View_Node.html">Node</a></li> 
+          <li><a href="../View_SourceCode.html">Source Code</a></li> 
+          <li><a href="../View_Inheritance.html">Inheritance</a></li> 
+          <li><a href="../View_Composition.html">Composition</a></li> 
+          <li><a href="../View_GlobalVar.html">Variables</a></li>
+          <li><a href="../View_Function.html">Function</a></li>		  
+          <li><a href="../View_Resources.html">Resources</a></li>
+          </ul>
+        </div>
+      </nav>
+    </hgroup>
+  </header>
+  
+  <div class="clearfix">
+  
+    <div id="content">
+      <article>
+        <nav id="leftBar">
+          <ul><a><EM>CHOOSE CLASS</EM></a><br>
+           <li><a href="View_Composition_Main.html">Main</a></li><br>
+           <li><a href="View_Composition_GameObjectManager.html">GameObjectManager</a></li><br>
+		   <li><a href="View_Composition_ApplicationManager.html">ApplicationManager</a></li><br>
+           <li><a href="View_Composition_Level.html">Level</a></li><br>
+           <li><a href="View_Composition_Player.html">Player</a></li><br>
+           <li><a href="View_Composition_AnimatedGameObject.html">AnimatedGameObject</a></li><br>
+          </ul>
+        </nav>
+      </article>
+    </div>
+    
+    <aside>
+    	<h1>Composition View : ApplicationManager</h1>
+    	<div id="openWin">
+        <div id="fileTitle">Files:</div>
+        <div id="files"></div>
+      </div>
+      <div class="simple_scroll">
+        <div class="scroll-pane">
+		      <div class="scroll-content">
+			      <div class="scroll-content-item">
+			        <div class="links">
+					<ul>
+					<h1><a>RepeatingObject.js</a></h1>
+				  			<p style="width: 512px">
+/**
+<br>    A class that display a repeating texture that can optionall be offset in either
+<br>	the x or y axis
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function RepeatingGameObject()
+<br>{
+<br>    /** The width that the final image will take up
+<br>		@type Number
+<br>	*/
+<br>	<a style="color: red ">this.width = 0;</a>
+<br>	/** The height that the final image will take up
+<br>		@type Number
+<br>	*/
+<br>    <a style="color: red ">this.height = 0;</a>
+<br>	/** How much of the scrollX and scrollY to apply when drawing
+<br>		@type Number
+<br>	*/
+<br>    <a style="color: red ">this.scrollFactor = 1;</a>
+<br>	
+<br>    /**
+<br>        Initialises this object
+<br>        @return A reference to the initialised object
+<br>    */
+<br>    this.<a style="color: red ">startupRepeatingGameObject </a>= function(image, x, y, z, width, height, scrollFactor)
+<br>    {
+<br>        this.startupVisualGameObject(image, x, y, z);
+<br>        this.width = width;
+<br>        this.height = height;
+<br>        this.scrollFactor = scrollFactor;
+<br>        return this;
+<br>    }
+<br>	
+<br>    /**
+<br>        Clean this object up
+<br>    */
+<br>    this.<a style="color: red ">shutdownstartupRepeatingGameObject</a> = function()
+<br>    {
+<br>        this.shutdownVisualGameObject();
+<br>    }
+<br>    
+<br>	/**
+<br>        Draws this element to the back buffer
+<br>        @param dt Time in seconds since the last frame
+<br>		@param context The context to draw to
+<br>		@param xScroll The global scrolling value of the x axis  
+<br>		@param yScroll The global scrolling value of the y axis  
+<br>    */
+<br>    this.<a style="color: red ">draw </a>= function(dt, canvas, xScroll, yScroll)
+<br>    {
+<br>        var areaDrawn = [0, 0];
+<br>        
+<br>        for (var y = 0; y < this.height; y += areaDrawn[1])
+<br>        {
+<br>            for (var x = 0; x < this.width; x += areaDrawn[0])
+<br>            {
+<br>                // the top left corner to start drawing the next tile from
+<br>				var newPosition = [this.x + x, this.y + y];
+<br>				// the amount of space left in which to draw
+<br>                var newFillArea = [this.width - x, this.height - y];
+<br>				// the first time around you have to start drawing from the middle of the image
+<br>				// subsequent tiles alwyas get drawn from the top or left
+<br>                var newScrollPosition = [0, 0];
+<br>                if (x==0) newScrollPosition[0] = xScroll * this.scrollFactor;
+<br>                if (y==0) newScrollPosition[1] = yScroll * this.scrollFactor;
+<br>                areaDrawn = this.drawRepeat(canvas, newPosition, newFillArea, newScrollPosition);
+<br>            }
+<br>        }
+<br>    }
+<br>    
+<br>    this.<a style="color: red ">drawRepeat</a> = function(canvas, newPosition, newFillArea, newScrollPosition)
+<br>    {
+<br>        // find where in our repeating texture to start drawing (the top left corner)
+<br>        var xOffset = Math.abs(newScrollPosition[0]) % this.image.width;
+<br>        var yOffset = Math.abs(newScrollPosition[1]) % this.image.height;
+<br>        var left = newScrollPosition[0]<0?this.image.width-xOffset:xOffset;
+<br>        var top = newScrollPosition[1]<0?this.image.height-yOffset:yOffset;
+<br>        var width = newFillArea[0] < this.image.width-left?newFillArea[0]:this.image.width-left;
+<br>        var height = newFillArea[1] < this.image.height-top?newFillArea[1]:this.image.height-top;
+<br>        
+<br>        // draw the image
+<br>        canvas.drawImage(this.image, left, top, width, height, newPosition[0], newPosition[1], width, height);
+<br>        
+<br>        return [width, height];
+<br>    }
+<br>    
+<br>    
+<br>}
+<br>RepeatingGameObject.prototype = new VisualGameObject();							
+							</p>
+					<h1><a>Player.js</a></h1>
+				  			<p style="width: 512px">
+			/** A class to represent the player on the screen
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+*/<br>
+<a style="color: red ">function Player()</a><br>
+{<br>
+    /** The maximum height of the jump<br>
+        @type Number<br>
+     */<br>
+    <a style="color: red ">this.jumpHeight = 64;</a><br>
+    /** The constant or half PI<br>
+        @type Number<br>
+     */<br>
+    <a style="color: red ">this.halfPI = Math.PI / 2;</a><br>
+    /** The amount of time to spend in the air when jumping<br>
+        @type Number<br>
+     */<br>
+    <a style="color: red ">this.jumpHangTime = 0.5;</a><br>
+    /** The speed to progress alone the sine wave that defines<br>
+        the jumping arc<br>
+        @type Number<br>
+     */<br>
+    <a style="color: red ">this.jumpSinWaveSpeed = this.halfPI / this.jumpHangTime;</a><br>
+    /** The current position on the sine wave that defines the jump arc<br>
+        @type Number<br>
+     */<br>
+    <a style="color: red ">this.jumpSinWavePos = 0;</a><br>
+    /** The rate to fall at<br>
+        @type Number<br>
+     */<br>
+    <a style="color: red ">this.fallMultiplyer = 1.5;</a><br>
+    /** True when the player is on the ground, false otherwise<br>
+        @type Boolean<br>
+     */<br>
+    <a style="color: red ">this.grounded = true;</a><br>
+    /** the players running speed<br>
+        @type Number<br>
+     */<br>
+    <a style="color: red ">this.speed = 75;</a><br>
+    /** True if the player is moving left, false otherwise<br>
+        @type Boolean<br>
+     */<br>
+    <a style="color: red ">this.left = false;</a><br>
+    /** True if the player is moving right, false otherwise<br>
+        @type Boolean<br>
+     */<br>
+    <a style="color: red ">this.right = false;</a><br>
+    /** A reference to the level object<br>
+        @type Level<br>
+    */<br>
+    <a style="color: red ">this.level = null;</a><br>
+    /** The distance between the player and the edge of the screen<br>
+        @type Number<br>
+     */<br>
+    <a style="color: red ">this.screenBorder = 20;</a><br>
+<br>
+    /**<br>
+        Initialises this object<br>
+    */<br>
+    <a style="color: red ">this.startupPlayer </a>= function(level)<br>
+    {<br>
+        this.startupAnimatedGameObject(g_ResourceManager.idleLeft, 300, 400 - 48 - 48, 4, 6, 20);<br>
+        this.level = level;<br>
+        return this;<br>
+    <br>
+
+    /**<br>
+        Called when a key is pressed<br>
+        @param event Event Object<br>
+    */<br>
+    <a style="color: red ">this.keyDown</a> = function(event)<br>
+    {<br>
+        var updateRequired = false;<br>
+<br>
+        // left<br>
+        if (event.keyCode == 37 && !this.left)<br>
+        {<br>
+            this.left = true;<br>
+            updateRequired = true;<br>
+        }<br>
+        // right<br>
+        if (event.keyCode == 39 && !this.right)
+<br>        {
+<br>            this.right = true;
+<br>            updateRequired = true;
+<br>        }
+<br>        if (event.keyCode == 32 && this.grounded)
+<br>        {
+<br>        this.grounded = false;
+<br>            this.jumpSinWavePos = 0;
+<br>        }
+<br>
+<br>        if (updateRequired)
+<br>            this.updateAnimation();
+<br>
+<br>    }
+<br>
+<br>    /**
+    <br>    Called when a key is pressed
+        <br>@param event Event Object
+ <br>   */
+ <br>  <a style="color: red "> this.keyUp </a>= function(event)
+    <br>{
+      <br>  // left
+        <br>if (event.keyCode == 37)
+       <br> {
+          <br>  this.left = false;
+            <br>this.setAnimation(g_ResourceManager.idleLeft, 6, 20);
+        <br>}
+        <br>// right
+        <br>if (event.keyCode == 39)
+        <br>{
+           <br> this.right = false;
+           <br> this.setAnimation(g_ResourceManager.idleRight, 6, 20);
+        <br>}
+<br>
+    <br>    this.updateAnimation();
+    <br>}
+<br>
+    <br>/**
+        <br>Updates the current animation depending on the movement
+        <br>of the player. This accounts for the fact that both
+        <br>the left and right arrow keys can be pressed at the
+        <br>same time.
+    <br>*/
+    <br><a style="color: red ">this.updateAnimation </a>= function()
+    <br>{
+       <br>if (this.right && this.left)
+          <br>  this.setAnimation(g_ResourceManager.idleLeft, 6, 20);
+       <br> else if (this.right)
+        <br>    this.setAnimation(g_ResourceManager.runRight, 12, 20);
+       <br> else if (this.left)
+        <br>    this.setAnimation(g_ResourceManager.runLeft, 12, 20);
+    <br>}
+<br>
+    <br>/**
+    <br>    Updates the object
+    <br>    @param dt The time since the last frame in seconds
+    <br>    @param context The drawing context
+     <br>   @param xScroll The global scrolling value of the x axis
+     <br>   @param yScroll The global scrolling value of the y axis
+  <br>  */
+<br>	<a style="color: red ">this.update </a>= function (/**Number*/ dt, /**CanvasRenderingContext2D*/context, /**Number*/ xScroll, /**Number*/ yScroll)
+<br>    {
+<br>        if (this.left)
+<br>            this.x -= this.speed * dt;
+<br>        if (this.right)
+<br>            this.x += this.speed * dt;
+<br>
+<br>        // XOR operation (JavaScript does not have a native XOR operator)
+<br>        // only test for a collision if the player is moving left or right (and not trying to do both at
+<br>        // the same time)
+<br>        if ((this.right || this.left) && !(this.left && this.right))
+<br>        {
+<br>            // this will be true until the player is no longer colliding
+   <br>         var collision = false;
+  <br>          // the player may have to be pushed back through several block stacks (especially if the
+     <br>       // frame rate is very slow)
+      <br>      do
+<br>            {
+    <br>            // the current position of the player (test the left side if running left
+        <br>        // and the right side if running right)
+  <br>              var xPos = this.left ? this.x : this.x + this.frameWidth;
+   <br>             // the index of stack of blocks that the player is standing on/in
+      <br>          var currentBlock = this.level.currentBlock(xPos);
+         <br>       // the height of the stack of blocks that the player is standing on/in
+            <br>    var groundHeight = this.level.groundHeight(currentBlock);
+              <br>  // the height of the player (we need the height from the ground up,
+<br>                // whereas the this.y value represents the position of the player
+    <br>            // from the "sky" down).
+        <br>        var playerHeight = context.canvas.height - (this.y + this.image.height);
+            <br>    // if the player is not higher than the stack of blocks, it must be colliding
+                <br>if (playerHeight  < groundHeight)
+<br>                {
+    <br>                collision = true;
+        <br>            // we are moving right, so push the player left
+            <br>        if (this.right)
+                <br>        this.x = this.level.blockWidth * currentBlock - this.frameWidth - 1;
+                    <br>// we are moving left, push the player right
+                <br>    else
+                    <br>    this.x = this.level.blockWidth * (currentBlock + 1);
+             <br>   }
+               <br> else
+<br>                {
+    <br>                collision = false;
+        <br>        }
+            <br>}  while (collision)
+<br>        }
+<br>
+    <br>    // keep the player bound to the level
+        <br>if (this.x > this.level.blocks.length * this.level.blockWidth - this.frameWidth - 1)
+      <br>      this.x = this.level.blocks.length * this.level.blockWidth - this.frameWidth - 1;
+  <br>      if (this.x > context.canvas.width - this.frameWidth + xScroll -  this.screenBorder)
+      <br>      g_GameObjectManager.xScroll = this.x - (context.canvas.width - this.frameWidth -  this.screenBorder);
+<br>        // modify the xScroll value to keep the player on the screen
+    <br>    if (this.x < 0)
+        <br>    this.x = 0;
+ <br>       if (this.x -  this.screenBorder < xScroll)
+     <br>       g_GameObjectManager.xScroll = this.x - this.screenBorder;
+<br>
+    <br>    // if the player is jumping or falling, move along the sine wave
+        <br>if (!this.grounded)
+  <br>      {
+      <br>      // the last position on the sine wave
+          <br>  var lastHeight = this.jumpSinWavePos;
+   <br>         // the new position on the sine wave
+       <br>     this.jumpSinWavePos += this.jumpSinWaveSpeed * dt;
+<br>
+    <br>        // we have fallen off the bottom of the sine wave, so continue falling
+        <br>    // at a predetermined speed
+            <br>if (this.jumpSinWavePos >= Math.PI)
+  <br>               this.y += this.jumpHeight / this.jumpHangTime * this.fallMultiplyer * dt;
+      <br>      // otherwise move along the sine wave
+          <br>  else
+              <br>  this.y -= (Math.sin(this.jumpSinWavePos) - Math.sin(lastHeight)) * this.jumpHeight;
+ <br>       }
+<br>
+    <br>    // now that the player has had it's y position changed we need to check for a collision
+        <br>// with the ground below the player. we have to check both the players left and right sides
+    <br>    // for a collision with the ground
+<br>
+    <br>    // left side
+        <br>var currentBlock1 = this.level.currentBlock(this.x);
+<br>        // right side
+    <br>    var currentBlock2 = this.level.currentBlock(this.x + this.frameWidth);
+        <br>// ground height below the left side
+ <br>       var groundHeight1 = this.level.groundHeight(currentBlock1);
+     <br>   // ground height below the right side
+<br>        var groundHeight2 = this.level.groundHeight(currentBlock2);
+    <br>    // the heighest point under the player
+        <br>var maxGroundHeight = groundHeight1 > groundHeight2 ? groundHeight1 : groundHeight2;
+<br>        // the players height (relaitive to the bottom of the screen)
+    <br>    var playerHeight = context.canvas.height - (this.y + this.image.height);
+<br>
+    <br>    // we have hit the ground
+        <br>if (maxGroundHeight >= playerHeight)
+        <br>{
+           <br> this.y = context.canvas.height - maxGroundHeight - this.image.height;
+<br>            this.grounded = true;
+    <br>        this.jumpSinWavePos = 0;
+        <br>}
+ <br>       // otherwise we are falling
+     <br>   else if (this.grounded)
+<br>        {
+    <br>        this.grounded = false;
+        <br>    // starting falling down the sine wave (i.e. from the top)
+            <br>this.jumpSinWavePos = this.halfPI;
+ <br>       }
+   <br> }
+<br>}
+<br>
+<br>Player.prototype = new AnimatedGameObject;							
+							</p>
+					<h1><a>Level.js</a></h1>
+				  			<p style="width: 512px">
+<br>							/**
+<br>    A class to represent the level
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function Level()
+<br>{
+<br>    this.blocks = new Array();
+<br>    this.powerups = new Object;
+<br>    this.blockWidth = 64;
+<br>    this.blockHeight = 48;
+<br>
+<br>    /**
+<br>        Initialises this object
+<br>    */
+<br>    this.startupLevel = function(canvasWidth, canvasHeight)
+<br>    {
+<br>        this.blocks[0] = 3;
+<br>        this.blocks[1] = 2;
+<br>        this.blocks[2] = 1;
+<br>        this.blocks[3] = 1;
+<br>        this.blocks[4] = 1;
+<br>        this.blocks[5] = 1;
+<br>        this.blocks[6] = 2;
+<br>        this.blocks[7] = 3;
+<br>        this.blocks[8] = 2;
+<br>        this.blocks[9] = 1;
+<br>        this.blocks[10] = 2;
+<br>        this.blocks[11] = 3;
+<br>        this.blocks[12] = 4;
+<br>        this.blocks[13] = 5;
+<br>        this.blocks[14] = 4;
+<br>        this.blocks[15] = 3;
+<br>
+<br>        this.powerups['1'] = 'Gem';
+<br>        this.powerups['6'] = 'Gem';
+<br>        this.powerups['10'] = 'Gem';
+<br>        this.powerups['14'] = 'Gem';
+<br>
+<br>        this.addBlocks(canvasWidth, canvasHeight);
+<br>        this.addPowerups(canvasWidth, canvasHeight);
+<br>
+<br>        return this;
+<br>    }
+<br>
+<br>    /**
+<br>        Adds the blocks to the screen by creating VisualGameObjects
+<br>    */
+<br>    this.addBlocks = function(canvasWidth, canvasHeight)
+<br>    {
+<br>        for (var x = 0; x < this.blocks.length; ++x)
+<br>        {
+<br>            for (var y = 0; y < this.blocks[x]; ++y)
+<br>            {
+<br>                new VisualGameObject().startupVisualGameObject(g_ResourceManager.block, x * this.blockWidth, canvasHeight - (y + 1) * this.blockHeight, 4);
+<br>            }
+ <br>       }
+<br>    }
+<br>
+<br>    this.addPowerups = function(canvasWidth, canvasHeight)
+<br>    {
+<br>        for (var x = 0; x < this.blocks.length; ++x)
+<br>        {
+<br>            if (this.powerups[x])
+<br>            {
+<br>                var xPosition = x * this.blockWidth + this.blockWidth / 2;
+<br>                var yPosition = canvasHeight - this.groundHeight(x);
+<br>
+<br>                switch(this.powerups[x])
+<br>                 {
+<br>                    case 'Gem':
+<br>                        new Powerup().startupPowerup(10, g_ResourceManager.gem, xPosition - g_ResourceManager.gem.width / 2, yPosition - g_ResourceManager.gem.height, 4, 1, 1);
+<br>                        break;
+<br>                 }
+<br>            }
+<br>        }
+<br>    }
+<br>
+<br>    /**
+<br>        @return     The block under the specified x position
+<br>        @param x    The x position to test
+<br>    */
+<br>    this.currentBlock = function(x)
+<br>    {
+<br>        return parseInt( x / this.blockWidth);
+<br>    }
+<br>    
+<br>    /**
+<br>        @return             The hieght of the ground under the specified block
+<br>        @param blockIndex   The block number
+<br>    */
+<br>    this.groundHeight = function(blockIndex)
+<br>    {
+<br>        if (blockIndex < 0 || blockIndex > this.blocks.length) return 0;
+<br>
+<br>        return this.blocks[blockIndex] *  this.blockHeight;
+<br>    }
+<br>}							
+							</p>							
+						
+				</ul>
+				
+			</li>
+				  		</div>
+				  		</div>
+						<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+							<div class="scroll-bar"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </aside>
+    
+  </div>
+  
+  <footer class="clearfix">
+    <section>
+      <nav id="footerBar">
+        <ul>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Documentations</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Demos</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">FAQ</a><li>
+          <li><a HREF="mailto:iamjerry719@gmail.com">Contact Us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <p class="copyright">Copyright &copy; 2011 <strong>Mingpu Yu</strong>. All Rights Reserved.</p>
+  </footer>
+      
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

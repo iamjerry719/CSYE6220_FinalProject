@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Source Code Views</title>
+  <link rel="stylesheet" href="../css/View_Composition_style.css" type="text/css" />
+  
+  <script type="text/javascript" src="../js/libs/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/libs/jquery.color.js"></script>
+  <script type="text/javascript" src="../js/libs/raphael.js"></script>
+  <script type="text/javascript" src="../js/znode/nodegraph.js"></script>
+  <script type="text/javascript" src="../js/znode/ui.js"></script> 
+  <script type="text/javascript" src="../js/libs/jquery_sc.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$(".links h1").addClass("active");
+		$(".links p").hide();
+		$(".links h1").click(function(){
+			$(this).next("p").slideToggle("slow")
+				.siblings("p:visible").slideUp("slow");
+			$(this).toggleClass("active");
+			$(this).siblings("h3").removeClass("active");
+		});
+	});
+
+</script>
+
+</head>
+
+<body>
+
+  <header>
+    <hgroup>
+      <h1><a href="../index.html">Znode</a></h1>
+      <nav id="global">
+        <div id="overlay"></div>
+        <div id="controls">
+          <ul>
+          <li><a href="../View_Node.html">Node</a></li> 
+          <li><a href="../View_SourceCode.html">Source Code</a></li> 
+          <li><a href="../View_Inheritance.html">Inheritance</a></li> 
+          <li><a href="../View_Composition.html">Composition</a></li> 
+          <li><a href="../View_GlobalVar.html">Variables</a></li>
+          <li><a href="../View_Function.html">Function</a></li>		  
+          <li><a href="../View_Resources.html">Resources</a></li>
+          </ul>
+        </div>
+      </nav>
+    </hgroup>
+  </header>
+  
+  <div class="clearfix">
+  
+    <div id="content">
+      <article>
+        <nav id="leftBar">
+          <ul><a><EM>CHOOSE CLASS</EM></a><br>
+           <li><a href="View_Composition_Main.html">Main</a></li><br>
+           <li><a href="View_Composition_GameObjectManager.html">GameObjectManager</a></li><br>
+		   <li><a href="View_Composition_ApplicationManager.html">ApplicationManager</a></li><br>
+           <li><a href="View_Composition_Level.html">Level</a></li><br>
+           <li><a href="View_Composition_Player.html">Player</a></li><br>
+           <li><a href="View_Composition_AnimatedGameObject.html">AnimatedGameObject</a></li><br>
+          </ul>
+        </nav>
+      </article>
+    </div>
+    
+    <aside>
+    	<h1>Composition View : Player</h1>
+    	<div id="openWin">
+        <div id="fileTitle">Files:</div>
+        <div id="files"></div>
+      </div>
+      <div class="simple_scroll">
+        <div class="scroll-pane">
+		      <div class="scroll-content">
+			      <div class="scroll-content-item">
+			        <div class="links">
+							<h1><a>AnimatedGameObject.js</a></h1>
+			                <p style="width: 512px">
+/**
+<br>    Displays an animated Game Object
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function AnimatedGameObject()
+<br>{
+<br>    /**
+<br>        Defines the current frame that is to be rendered
+<br>        @type Number
+<br>     */
+<br>    <a style="color: red ">this.currentFrame = 0;</a>
+<br>    /**
+<br>        Defines the frames per second of the animation
+<br>        @type Number
+<br>     */
+<br>    <a style="color: red ">this.timeBetweenFrames = 0;</a>
+<br>    /**
+<br>        The number of individual frames held in the image
+<br>        @type Number
+<br>     */
+<br>    /**
+<br>        Time until the next frame
+<br>        @type number
+<br>     */
+<br>    <a style="color: red ">this.timeSinceLastFrame = 0;</a>
+<br>    /**
+<br>        The width of each individual frame
+<br>        @type Number
+<br>     */
+<br>    <a style="color: red ">this.frameWidth = 0;</a>
+<br>
+<br>    /**
+<br>        Initialises this object
+<br>        @param image The image to be displayed
+<br>		@param x The position on the X axis
+<br>        @param y The position on the Y axis
+<br>		@param z The depth
+<br>        @param frameCount The number of animation frames in the image
+<br>        @param fps The frames per second to animate this object at
+<br>    */
+<br>    this.<a style="color: red ">startupAnimatedGameObject</a> = function(/**Image*/ image, /**Number*/ x, /**Number*/ y, /**Number*/ z, /**Number*/ frameCount, /**Number*/ fps)
+<br>    {
+<br>        if (frameCount <= 0) throw "framecount can not be <= 0";
+<br>        if (fps <= 0) throw "fps can not be <= 0"
+<br>
+<br>        this.startupVisualGameObject(image, x, y, z);
+<br>        this.currentFrame = 0;
+<br>        this.frameCount = frameCount;
+<br>        this.timeBetweenFrames = 1/fps;
+<br>        this.timeSinceLastFrame = this.timeBetweenFrames;
+<br>        this.frameWidth = this.image.width / this.frameCount;
+<br>
+<br>        return this;
+<br>    }
+<br>
+<br>    this.<a style="color: red ">shutdownAnimatedGameObject </a>= function()
+<br>    {
+<br>        this.shutdownVisualGameObject();       
+<br>    }
+<br>
+<br>    this.<a style="color: red ">setAnimation</a> = function(/**Image*/ image, /**Number*/ frameCount, /**Number*/ fps)
+<br>    {
+<br>        if (frameCount <= 0) throw "framecount can not be <= 0";
+<br>        if (fps <= 0) throw "fps can not be <= 0"
+<br>
+<br>        this.image = image;
+<br>        this.currentFrame = 0;
+<br>        this.frameCount = frameCount;
+<br>        this.timeBetweenFrames = 1/fps;
+<br>        this.timeSinceLastFrame = this.timeBetweenFrames;
+<br>        this.frameWidth = this.image.width / this.frameCount;
+<br>    }
+<br>
+<br>    /**
+<br>        Draws this element to the back buffer
+<br>        @param dt Time in seconds since the last frame
+<br>		@param context The context to draw to
+<br>		@param xScroll The global scrolling value of the x axis
+<br>		@param yScroll The global scrolling value of the y axis
+<br>    */
+<br>    this.<a style="color: red ">draw</a> = function(/**Number*/ dt, /**CanvasRenderingContext2D*/ context, /**Number*/ xScroll, /**Number*/ yScroll)
+<br>    {
+<br>        var sourceX = this.frameWidth * this.currentFrame;
+<br>        context.drawImage(this.image, sourceX, 0, this.frameWidth, this.image.height, this.x - xScroll, this.y - yScroll, this.frameWidth, this.image.height);
+<br>
+<br>        this.timeSinceLastFrame -= dt;
+<br>        if (this.timeSinceLastFrame <= 0)
+<br>        {
+<br>           this.timeSinceLastFrame = this.timeBetweenFrames;
+<br>           ++this.currentFrame;
+<br>           this.currentFrame %= this.frameCount;
+<br>        }
+<br>    }
+<br>
+<br>    this.<a style="color: red ">collisionArea </a>= function()
+<br>    {
+<br>        return new Rectangle().startupRectangle(this.x, this.y, this.frameWidth, this.image.height);
+<br>    }
+<br>}
+<br>
+<br>AnimatedGameObject.prototype = new VisualGameObject;
+				  			</p>
+						    <h1><a>ResourceManager.js</a></h1>
+			                <p style="width: 512px">
+/**
+<br>    A database for the external resources used by the game
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function ResourceManager()
+<br>{
+<br>	/** An array of the names of the images supplied to the startupResourceManager
+<br>		function. Since the images are referenced by creating new properties
+<br>		of the ResourceManager class this collection allows a developer to 
+<br>		know which of the ResourceManager properties are images, and (by 
+<br>		elimination) those that are not
+<br>		@type Array
+<br>	*/
+<br>    this.imageProperties = null;
+<br>
+<br>	/**
+<br>        Initialises this object
+<br>		@param images	An array of objects with the name and src properties
+<br>        @return 		A reference to the initialised object
+<br>    */
+<br>    this.startupResourceManager = function(/**Array*/ images)
+<br>    {
+<br>        // set the global variable
+<br>		g_ResourceManager = this;
+<br>
+<br>        // initialize internal state.
+<br>        this.imageProperties = new Array();
+<br>
+<br>        // for each image, call preload()
+<br>        for ( var i = 0; i < images.length; i++ )
+<br>		{
+<br>			// create new Image object and add to array
+<br>			var thisImage = new Image;
+<br>			this[images[i].name] = thisImage;
+<br>			this.imageProperties.push(images[i].name);
+<br>
+<br>			// assign the .src property of the Image object
+<br>			thisImage.src = images[i].src;
+<br>		}
+<br>
+<br>        return this;
+<br>    }
+<br>}
+				  			</p>					
+				  		</div>
+				  		</div>
+						<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+							<div class="scroll-bar"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </aside>
+    
+  </div>
+  
+  <footer class="clearfix">
+    <section>
+      <nav id="footerBar">
+        <ul>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Documentations</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Demos</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">FAQ</a><li>
+          <li><a HREF="mailto:iamjerry719@gmail.com">Contact Us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <p class="copyright">Copyright &copy; 2011 <strong>Mingpu Yu</strong>. All Rights Reserved.</p>
+  </footer>
+      
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

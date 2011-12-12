@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Source Code Views</title>
+  <link rel="stylesheet" href="../css/View_Composition_style.css" type="text/css" />
+  
+  <script type="text/javascript" src="../js/libs/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/libs/jquery.color.js"></script>
+  <script type="text/javascript" src="../js/libs/raphael.js"></script>
+  <script type="text/javascript" src="../js/znode/nodegraph.js"></script>
+  <script type="text/javascript" src="../js/znode/ui.js"></script> 
+  <script type="text/javascript" src="../js/libs/jquery_sc.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$(".links h1").addClass("active");
+		$(".links p").hide();
+		$(".links h1").click(function(){
+			$(this).next("p").slideToggle("slow")
+				.siblings("p:visible").slideUp("slow");
+			$(this).toggleClass("active");
+			$(this).siblings("h3").removeClass("active");
+		});
+	});
+
+</script>
+
+</head>
+
+<body>
+
+  <header>
+    <hgroup>
+      <h1><a href="../index.html">Znode</a></h1>
+      <nav id="global">
+        <div id="overlay"></div>
+        <div id="controls">
+          <ul>
+          <li><a href="../View_Node.html">Node</a></li> 
+          <li><a href="../View_SourceCode.html">Source Code</a></li> 
+          <li><a href="../View_Inheritance.html">Inheritance</a></li> 
+          <li><a href="../View_Composition.html">Composition</a></li> 
+          <li><a href="../View_GlobalVar.html">Variables</a></li>
+          <li><a href="../View_Function.html">Function</a></li>		  
+          <li><a href="../View_Resources.html">Resources</a></li>
+          </ul>
+        </div>
+      </nav>
+    </hgroup>
+  </header>
+  
+  <div class="clearfix">
+  
+    <div id="content">
+      <article>
+        <nav id="leftBar">
+          <ul><a><EM>CHOOSE CLASS</EM></a><br>
+           <li><a href="View_Composition_Main.html">Main</a></li><br>
+           <li><a href="View_Composition_GameObjectManager.html">GameObjectManager</a></li><br>
+		   <li><a href="View_Composition_ApplicationManager.html">ApplicationManager</a></li><br>
+           <li><a href="View_Composition_Level.html">Level</a></li><br>
+           <li><a href="View_Composition_Player.html">Player</a></li><br>
+           <li><a href="View_Composition_AnimatedGameObject.html">AnimatedGameObject</a></li><br>
+          </ul>
+        </nav>
+      </article>
+    </div>
+    
+    <aside>
+    	<h1>Composition View : GameObjectManager</h1>
+    	<div id="openWin">
+        <div id="fileTitle">Files:</div>
+        <div id="files"></div>
+      </div>
+      <div class="simple_scroll">
+        <div class="scroll-pane">
+		      <div class="scroll-content">
+			      <div class="scroll-content-item">
+			        <div class="links">
+					<ul>
+							<h1><a>ApplicationManager.js</a></h1>
+				  			<p style="width: 512px">
+														/**
+<br>    The ApplicationManager is used to manage the application itself.
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function ApplicationManager()
+<br>{
+<br>    /**
+<br>        Initialises this object
+<br>        @param canvasWidth      The width of the canvas
+<br>        @param canvasHeight     The height of the canvas
+<br>        @return                 A reference to the initialised object
+<br>
+<br>    */
+<br>    <a style="color: red ">this.startupApplicationManager </a>= function(canvasWidth, canvasHeight)
+<br>    {
+<br>        g_ApplicationManager = this;
+<br>
+<br>        this.level = new Level().startupLevel(canvasWidth, canvasHeight);
+<br>        this.background3 = new RepeatingGameObject().startupRepeatingGameObject(g_ResourceManager.background2, 0, 100, 3, 600, 320, 0.75);
+<br>        this.background2 = new RepeatingGameObject().startupRepeatingGameObject(g_ResourceManager.background1, 0, 100, 2, 600, 320, 0.5);
+<br>        this.background = new RepeatingGameObject().startupRepeatingGameObject(g_ResourceManager.background0, 0, 0, 1, 600, 320, 0.25);
+<br>        g_player = new Player().startupPlayer(this.level);
+<br>        this.updateScore();
+<br>        return this;
+<br>    }
+<br>
+<br>    <a style="color: red ">this.updateScore</a> = function()
+<br>    {
+<br>        var score = document.getElementById("Score");
+<br>        score.innerHTML = String(g_score);
+<br>    }
+<br>}
+							</p>
+							<h1><a>GameObject.js</a></h1>
+				  			<p style="width: 512px">
+							/**
+<br>    The base class for all elements that appear in the game.
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function GameObject()
+<br>{
+<br>    /** Display depth order. A smaller zOrder means the element is rendered first, and therefor
+<br>        in the background.
+<br>        @type Number
+<br>    */
+<br>    <a style="color: red ">this.zOrder = 0;</a>
+<br>    /**
+<br>        The position on the X axis
+<br>        @type Number
+<br>    */
+<br>    <a style="color: red ">this.x = 0;</a>
+<br>    /**
+<br>        The position on the Y axis
+<br>        @type Number
+<br>    */
+<br>    <a style="color: red ">this.y = 0;</a>
+<br>    
+<br>    /**
+<br>        Initialises the object, and adds it to the list of objects held by the GameObjectManager.
+<br>        @param x        The position on the X axis
+<br>        @param y        The position on the Y axis
+<br>        @param z        The z order of the element (elements in the background have a lower z value)
+<br>    */
+<br>    this.<a style="color: red ">startupGameObject</a> = function(/**Number*/ x, /**Number*/ y, /**Number*/ z)
+<br>    {
+<br>        this.zOrder = z;
+<br>        this.x = x;
+<br>        this.y = y;
+<br>        g_GameObjectManager.addGameObject(this);
+<br>        return this;
+<br>    }
+<br>    
+<br>    /**
+<br>        Cleans up the object, and removes it from the list of objects held by the GameObjectManager.
+<br>    */
+<br>    this.<a style="color: red ">shutdownGameObject</a> = function()
+<br>    {
+<br>        g_GameObjectManager.removeGameObject(this);
+<br>    }
+<br>}
+							</p>
+							<h1><a>Utils.js</a></h1>
+				  			<p style="width: 512px">
+						/**
+<br>    Removes a number of objects from the array
+<br>    @param from The first object to remove
+<br>    @param to (Optional) The last object to remove
+<br>*/
+<br><a style="color: red ">Array.prototype.remove </a>= function(/**Number*/ from, /**Number*/ to)
+<br>{
+<br>  var rest = this.slice((to || from) + 1 || this.length);
+<br>  this.length = from < 0 ? this.length + from : from;
+<br>  return this.push.apply(this, rest);
+<br>};
+<br>
+<br>/**
+<br>    Removes a specific object from the array
+<br>    @param object The object to remove
+<br>*/
+<br><a style="color: red ">Array.prototype.removeObject</a> = function(object)
+<br>{
+<br>    for (var i = 0; i < this.length; ++i)
+<br>    {
+<br>        if (this[i] === object)
+<br>        {
+<br>            this.remove(i);
+<br>            break;
+<br>        }
+<br>    }
+<br>}	
+							</p>
+				    </ul>
+				
+			
+				  		</div>
+				  		</div>
+						<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+							<div class="scroll-bar"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </aside>
+    
+  </div>
+  
+  <footer class="clearfix">
+    <section>
+      <nav id="footerBar">
+        <ul>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Documentations</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Demos</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">FAQ</a><li>
+          <li><a HREF="mailto:iamjerry719@gmail.com">Contact Us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <p class="copyright">Copyright &copy; 2011 <strong>Mingpu Yu</strong>. All Rights Reserved.</p>
+  </footer>
+      
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

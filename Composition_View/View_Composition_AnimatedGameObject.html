@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Source Code Views</title>
+  <link rel="stylesheet" href="../css/View_Composition_style.css" type="text/css" />
+  
+  <script type="text/javascript" src="../js/libs/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/libs/jquery.color.js"></script>
+  <script type="text/javascript" src="../js/libs/raphael.js"></script>
+  <script type="text/javascript" src="../js/znode/nodegraph.js"></script>
+  <script type="text/javascript" src="../js/znode/ui.js"></script> 
+  <script type="text/javascript" src="../js/libs/jquery_sc.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$(".links h1").addClass("active");
+		$(".links p").hide();
+		$(".links h1").click(function(){
+			$(this).next("p").slideToggle("slow")
+				.siblings("p:visible").slideUp("slow");
+			$(this).toggleClass("active");
+			$(this).siblings("h3").removeClass("active");
+		});
+	});
+
+</script>
+
+</head>
+
+<body>
+
+  <header>
+    <hgroup>
+      <h1><a href="../index.html">Znode</a></h1>
+      <nav id="global">
+        <div id="overlay"></div>
+        <div id="controls">
+          <ul>
+          <li><a href="../View_Node.html">Node</a></li> 
+          <li><a href="../View_SourceCode.html">Source Code</a></li> 
+          <li><a href="../View_Inheritance.html">Inheritance</a></li> 
+          <li><a href="../View_Composition.html">Composition</a></li> 
+          <li><a href="../View_GlobalVar.html">Variables</a></li>
+          <li><a href="../View_Function.html">Function</a></li>		  
+          <li><a href="../View_Resources.html">Resources</a></li>
+          </ul>
+        </div>
+      </nav>
+    </hgroup>
+  </header>
+  
+  <div class="clearfix">
+  
+    <div id="content">
+      <article>
+        <nav id="leftBar">
+          <ul><a><EM>CHOOSE CLASS</EM></a><br>
+           <li><a href="View_Composition_Main.html">Main</a></li><br>
+           <li><a href="View_Composition_GameObjectManager.html">GameObjectManager</a></li><br>
+		   <li><a href="View_Composition_ApplicationManager.html">ApplicationManager</a></li><br>
+           <li><a href="View_Composition_Level.html">Level</a></li><br>
+           <li><a href="View_Composition_Player.html">Player</a></li><br>
+           <li><a href="View_Composition_AnimatedGameObject.html">AnimatedGameObject</a></li><br>
+          </ul>
+        </nav>
+      </article>
+    </div>
+    
+    <aside>
+    	<h1>Composition View : AnimatedGameObject</h1>
+    	<div id="openWin">
+        <div id="fileTitle">Files:</div>
+        <div id="files"></div>
+      </div>
+      <div class="simple_scroll">
+        <div class="scroll-pane">
+		      <div class="scroll-content">
+			      <div class="scroll-content-item">
+			        <div class="links">
+					<ul>
+					<h1><a>VisualGameObject.js</a></h1>
+				  			<p style="width: 512px">
+/**
+<br>    The base class for all elements that appear in the game.
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function VisualGameObject()
+<br>{
+<br>    /**
+<br>        The image that will be displayed by this object
+<br>        @type Image
+<br>    */
+<br>    <a style="color: red ">.image = null;</a>
+<br>    
+<br>    /**
+<br>        Draws this element to the back buffer
+<br>        @param dt Time in seconds since the last frame
+<br>		@param context The context to draw to
+<br>		@param xScroll The global scrolling value of the x axis  
+<br>		@param yScroll The global scrolling value of the y axis  
+<br>    */
+<br>    this.<a style="color: red ">draw </a>= function(/**Number*/ dt, /**CanvasRenderingContext2D*/ context, /**Number*/ xScroll, /**Number*/ yScroll)
+<br>    {
+<br>        context.drawImage(this.image, this.x - xScroll, this.y - yScroll);
+<br>    }
+<br>    
+<br>    /**
+<br>        Initialises this object
+<br>        @param image The image to be displayed
+<br>		@param x The position on the X axis
+<br>        @param y The position on the Y axis
+<br>		@param z The depth
+<br>    */
+<br>    this.<a style="color: red ">startupVisualGameObject</a> = function(/**Image*/ image, /**Number*/ x, /**Number*/ y, /**Number*/ z)
+<br>    {
+<br>        this.startupGameObject(x, y, z);
+<br>        this.image = image;
+<br>        return this;
+<br>    }
+<br>    
+<br>    /**
+<br>        Clean this object up
+<br>    */
+<br>    this.<a style="color: red ">shutdownVisualGameObject</a> = function()
+<br>    {
+<br>        this.shutdownGameObject();
+<br>        this.image = null;
+<br>    }
+<br>
+<br>    this.<a style="color: red ">collisionArea </a>= function()
+<br>    {
+<br>        return new Rectangle().startupRectangle(this.x, this.y, this.image.width, this.image.height);
+<br>    }
+<br>}
+<br>VisualGameObject.prototype = new GameObject;							
+							</p>
+					<h1><a>Rectangle.js</a></h1>
+				  			<p style="width: 512px">
+/**
+<br>    A rectangle
+<br>     @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>     @class
+<br> */
+<br> function Rectangle()
+<br> {
+<br>     <a style="color: red ">this.left = 0;</a>
+<br>     <a style="color: red ">this.top = 0;</a>
+<br>     <a style="color: red ">this.width = 0;</a>
+<br>     <a style="color: red ">this.height = 0;</a>
+<br> 
+<br>     /**
+<br>         Initialises the object
+<br>         @param left     Left position
+<br>         @param top      Top Position
+<br>         @param width    Width of rectangle
+<br>         @param height   Height of triangle
+<br>      */
+<br>     this.<a style="color: red ">startupRectangle</a> = function(/**Number*/ left, /**Number*/ top, /**Number*/ width, /**Number*/ height)
+<br>     {
+<br>         this.left = left;
+<br>         this.top = top;
+<br>         this.width = width;
+<br>         this.height = height;
+<br>         return this;
+<br>     }
+<br> 
+<br>     /**
+<br>         @return         true if there is an intersection, false otherwise
+<br>         @param other    The other rectangle to test against
+<br>      */
+<br>     this.<a style="color: red ">intersects</a> = function(/**Rectangle*/ other)
+<br>     {
+<br>         if (this.left + this.width < other.left)
+<br>             return false;
+<br>         if (this.top + this.height < other.top)
+<br>             return false;
+<br>         if (this.left > other.left + other.width)
+<br>             return false;
+<br>         if (this.top > other.top + other.height)
+<br>             return false;
+<br> 
+<br>         return true;
+<br>     }
+<br> }							
+							</p>
+							
+				    </ul>
+				
+			</li>
+				  		</div>
+				  		</div>
+						<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+							<div class="scroll-bar"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </aside>
+    
+  </div>
+  
+  <footer class="clearfix">
+    <section>
+      <nav id="footerBar">
+        <ul>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Documentations</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Demos</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">FAQ</a><li>
+          <li><a HREF="mailto:iamjerry719@gmail.com">Contact Us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <p class="copyright">Copyright &copy; 2011 <strong>Mingpu Yu</strong>. All Rights Reserved.</p>
+  </footer>
+      
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

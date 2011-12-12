@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Source Code Views</title>
+  <link rel="stylesheet" href="css/View_Composition_style.css" type="text/css" />
+  
+  <script type="text/javascript" src="js/libs/jquery.min.js"></script>
+  <script type="text/javascript" src="js/libs/jquery.color.js"></script>
+  <script type="text/javascript" src="js/libs/raphael.js"></script>
+  <script type="text/javascript" src="js/znode/nodegraph.js"></script>
+  <script type="text/javascript" src="js/znode/ui.js"></script> 
+  <script type="text/javascript" src="js/libs/jquery_sc.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$(".links h1").addClass("active");
+		$(".links p").hide();
+		$(".links h1").click(function(){
+			$(this).next("p").slideToggle("slow")
+				.siblings("p:visible").slideUp("slow");
+			$(this).toggleClass("active");
+			$(this).siblings("h3").removeClass("active");
+		});
+	});
+
+</script>
+
+</head>
+
+<body>
+
+  <header>
+    <hgroup>
+      <h1><a href="../index.html">Znode</a></h1>
+      <nav id="global">
+        <div id="overlay"></div>
+        <div id="controls">
+          <ul>
+          <li><a href="View_Node.html">Node</a></li> 
+          <li><a href="View_SourceCode.html">Source Code</a></li> 
+          <li><a href="View_Inheritance.html">Inheritance</a></li> 
+          <li><a href="View_Composition.html">Composition</a></li> 
+          <li><a href="View_GlobalVar.html">Variables</a></li>
+          <li><a href="View_Function.html">Function</a></li>		  
+          <li><a href="View_Resources.html">Resources</a></li>
+          </ul>
+        </div>
+      </nav>
+    </hgroup>
+  </header>
+  
+  <div class="clearfix">
+  
+    <div id="content">
+      <article>
+        <nav id="leftBar">
+            <ul><a style="color: #000000">Choose File:</a><br> 
+		    <li><a href="Function_View/View_FunctionView_Main.html">Main.js</a></li><br> 
+		    <li><a href="Function_View/View_FunctionView_GameObjectManager.html">GameObjectManager.js</a></li><br> 
+			<li><a href="Function_View/View_FunctionView_Utils.html">Utils.js</a></li><br> 
+		    <li><a href="Function_View/View_FunctionView_GameObject.html">GameObject.js</a></li><br> 
+	        <li><a href="Function_View/View_FunctionView_ApplicationManager.html">ApplicationManager.js</a></li><br>
+			<li><a href="Function_View/View_FunctionView_RepeatingGameObject.html">RepeatingGameObject.js</a></li><br> 
+			<li><a href="Function_View/View_FunctionView_Level.html">Level.js</a></li><br>
+			<li><a href="Function_View/View_FunctionView_Powerup.html">Powerup.js</a></li><br> 
+			<li><a href="Function_View/View_FunctionView_Player.html">Player.js</a></li><br> 
+            <li><a href="Function_View/View_FunctionView_AnimatedGameObject.html">AnimatedGameObject.js</a></li><br>          
+            <li><a href="Function_View/View_FunctionView_VisualGameObject.html">VisualGameObject.js</a></li><br> 
+            <li><a href="Function_View/View_FunctionView_Rectangle.html">Rectangle.js</a></li><br> 
+            <li><a href="Function_View/View_FunctionView_ResourceManager.html">ResourceManager.js</a></li><br>
+          </ul>
+        </nav>
+      </article>
+    </div>
+    
+    <aside>
+    	<h1>Function_View</h1>
+      <div class="simple_scroll">
+        <div class="scroll-pane">
+		      <div class="scroll-content">
+			      <div class="scroll-content-item">
+			        <div class="links">
+					</div>
+				</div>	
+						<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+							<div class="scroll-bar"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </aside>
+    
+  </div>
+  
+  <footer class="clearfix">
+    <section>
+      <nav id="footerBar">
+        <ul>
+          <li><a href="http://jquery.com">jQuery</a></li>
+          <li><a href="http://www.w3schools.com/">HTML5</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">About me</a><li>
+          <li><a HREF="mailto:iamjerry719@gmail.com">Contact Us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <p class="copyright">Copyright &copy; 2011 <strong>Mingpu Yu</strong>. All Rights Reserved.</p>
+  </footer>
+      
+
+</body>
+</html>

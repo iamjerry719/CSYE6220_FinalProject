@@ -1,0 +1,2 @@
+1.In the <leftBar>, you can choose a class in the leftBar, the relative informations are shown in the <aside> frame.
+2.In the <aside>, you can choose a function, and the classes calls this function are displayed on the right. Meanwhile, the declaration of the function is displayed on the bottom.

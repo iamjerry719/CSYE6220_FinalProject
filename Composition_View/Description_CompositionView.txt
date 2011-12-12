@@ -1,0 +1,2 @@
+1. I listed several classes on the <leftBar>,following the game process from the top to the bottom. Choose one, then you will get the composition classes on the right.
+2. Click on the composition classes, you will get his source code. And I highlighted the relative varibles and functions with the red color.

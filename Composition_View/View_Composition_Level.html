@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Source Code Views</title>
+  <link rel="stylesheet" href="../css/View_Composition_style.css" type="text/css" />
+  
+  <script type="text/javascript" src="../js/libs/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/libs/jquery.color.js"></script>
+  <script type="text/javascript" src="../js/libs/raphael.js"></script>
+  <script type="text/javascript" src="../js/znode/nodegraph.js"></script>
+  <script type="text/javascript" src="../js/znode/ui.js"></script> 
+  <script type="text/javascript" src="../js/libs/jquery_sc.js"></script>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+		$(".links h1").addClass("active");
+		$(".links p").hide();
+		$(".links h1").click(function(){
+			$(this).next("p").slideToggle("slow")
+				.siblings("p:visible").slideUp("slow");
+			$(this).toggleClass("active");
+			$(this).siblings("h3").removeClass("active");
+		});
+	});
+
+</script>
+
+</head>
+
+<body>
+
+  <header>
+    <hgroup>
+      <h1><a href="../index.html">Znode</a></h1>
+      <nav id="global">
+        <div id="overlay"></div>
+        <div id="controls">
+          <ul>
+          <li><a href="../View_Node.html">Node</a></li> 
+          <li><a href="../View_SourceCode.html">Source Code</a></li> 
+          <li><a href="../View_Inheritance.html">Inheritance</a></li> 
+          <li><a href="../View_Composition.html">Composition</a></li> 
+          <li><a href="../View_GlobalVar.html">Variables</a></li>
+          <li><a href="../View_Function.html">Function</a></li>		  
+          <li><a href="../View_Resources.html">Resources</a></li>
+          </ul>
+        </div>
+      </nav>
+    </hgroup>
+  </header>
+  
+  <div class="clearfix">
+  
+    <div id="content">
+      <article>
+        <nav id="leftBar">
+          <ul><a><EM>CHOOSE CLASS</EM></a><br>
+           <li><a href="View_Composition_Main.html">Main</a></li><br>
+           <li><a href="View_Composition_GameObjectManager.html">GameObjectManager</a></li><br>
+		   <li><a href="View_Composition_ApplicationManager.html">ApplicationManager</a></li><br>
+           <li><a href="View_Composition_Level.html">Level</a></li><br>
+           <li><a href="View_Composition_Player.html">Player</a></li><br>
+           <li><a href="View_Composition_AnimatedGameObject.html">AnimatedGameObject</a></li><br>
+          </ul>
+        </nav>
+      </article>
+    </div>
+    
+    <aside>
+    	<h1>Composition View : Level</h1>
+    	<div id="openWin">
+        <div id="fileTitle">Files:</div>
+        <div id="files"></div>
+      </div>
+      <div class="simple_scroll">
+        <div class="scroll-pane">
+		      <div class="scroll-content">
+			      <div class="scroll-content-item">
+			        <div class="links">
+					<ul>
+					<h1><a>Powerup.js</a></h1>
+				  			<p style="width: 512px">
+/**
+<br>    Represents a powerup in the game
+<br>    @author <a href="mailto:matthewcasperson@gmail.com">Matthew Casperson</a>
+<br>    @class
+<br>*/
+<br>function Powerup()
+<br>{
+<br>    /** The value of the powerup
+<br>        @type Number
+<br>     */
+<br>    <a style="color: red ">this.value = 0;</a>
+<br>    /** The current position on the sine wave
+<br>        @type Number
+<br>     */
+<br>    <a style="color: red ">this.sineWavePos = 0;</a>
+<br>    /** How quickly the powerup cycles through the sine wave
+<br>        @type Number
+<br>     */
+<br>    <a style="color: red ">this.bounceTime = 1;</a>
+<br>    /** The speed to increment the sineWavePos value at
+<br>        @type Number
+<br>     */
+<br>    <a style="color: red ">this.bounceSpeed = Math.PI / this.bounceTime;</a>
+<br>    /** The height of the powerups bounce
+<br>        @type Number
+<br>     */
+<br>    <a style="color: red ">this.bounceHeight = 10;</a>
+<br>
+<br>    /**
+<br>        Initialises this object
+<br>        @param value        The value (score) of this powerup
+<br>        @param image        The image to be displayed
+<br>        @param x            The position on the X axis
+<br>        @param y            The position on the Y axis
+<br>        @param z            The depth
+<br>        @param frameCount   The number of animation frames in the image
+<br>        @param fps          The frames per second to animate this object at
+<br>     */
+<br>    this.<a style="color: red ">startupPowerup</a> = function(/**Number*/ value, /**Image*/ image, /**Number*/ x, /**Number*/ y, /**Number*/ z, /**Number*/ frameCount, /**Number*/ fps)
+<br>    {
+<br>        this.startupAnimatedGameObject(image, x, y - this.bounceHeight, z, frameCount, fps);
+<br>        this.value = value;
+<br>        return this;
+<br>    }
+<br>
+<br>    /**
+<br>        Shuts this object down.
+<br>     */
+<br>    this.<a style="color: red ">shutdownPowerup</a> = function()
+<br>    {
+<br>        this.shutdownAnimatedGameObject();
+<br>    }
+<br>
+<br>    /**
+<br>        Updates the object
+<br>        @param dt The time since the last frame in seconds
+<br>        @param context The drawing context
+<br>        @param xScroll The global scrolling value of the x axis
+<br>        @param yScroll The global scrolling value of the y axis
+<br>    */
+<br>	this.<a style="color: red ">update</a> = function (/**Number*/ dt, /**CanvasRenderingContext2D*/context, /**Number*/ xScroll, /**Number*/ yScroll)
+<br>    {
+<br>        var lastSineWavePos = this.sineWavePos;
+<br>        this.sineWavePos += this.bounceSpeed * dt;
+<br>        this.y += (Math.sin(this.sineWavePos) - Math.sin(lastSineWavePos)) * this.bounceHeight;
+<br>
+<br>        if (this.collisionArea().intersects(g_player.collisionArea()))
+<br>        {
+<br>            this.shutdownPowerup();
+<br>            g_score += this.value;
+<br>            g_ApplicationManager.updateScore();
+<br>        }
+<br>    }
+<br>}
+<br>
+<br>Powerup.prototype = new AnimatedGameObject;
+				  			</p>
+				  		</div>
+				  		</div>
+						<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+							<div class="scroll-bar"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </aside>
+    
+  </div>
+  
+  <footer class="clearfix">
+    <section>
+      <nav id="footerBar">
+        <ul>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Documentations</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">Demos</a></li>
+          <li><a href="http://www1.coe.neu.edu/~ylu062/hw5/yutehlu.html">FAQ</a><li>
+          <li><a HREF="mailto:iamjerry719@gmail.com">Contact Us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <p class="copyright">Copyright &copy; 2011 <strong>Mingpu Yu</strong>. All Rights Reserved.</p>
+  </footer>
+      
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
